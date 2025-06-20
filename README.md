@@ -23,7 +23,7 @@ The existing setup includes:
 - Application Load Balancer (but not really helping much)
 - Route 53 DNS setup
 - Basic GitHub Actions CI/CD pipeline
-- Cloudflare CDN (configured but underutilized)
+- CDN setup (underutilized)
 
 ## Your Mission
 
@@ -68,7 +68,7 @@ Create operational docs so the team can handle the next crisis without you.
 
 - **Terraform**: Use version 1.5+
 - **AWS Region**: `us-east-1` 
-- **Existing Services**: ECS Fargate, RDS MySQL, ALB, Route 53, Cloudflare, CloudWatch
+- **Existing Services**: ECS Fargate, RDS MySQL, ALB, Route 53, CloudWatch
 - **Assume**: You have AWS credentials and appropriate permissions
 
 ## The Stakes

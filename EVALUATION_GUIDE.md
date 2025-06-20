@@ -45,7 +45,7 @@ The skeleton infrastructure contains these deliberate performance issues for can
 - Implement horizontal scaling (ECS Auto Scaling with multiple tasks)
 - Add database read replicas or connection pooling
 - Configure proper load balancer health checks
-- Utilize Cloudflare CDN for static/cacheable content
+- Utilize CDN for static/cacheable content (CloudFront or similar)
 - Consider caching strategies (ElastiCache, application-level)
 
 **Evaluation points:**
