@@ -1,0 +1,7 @@
+# Example Terraform variables
+# Copy this file to terraform.tfvars and update the values
+
+aws_region = "us-east-1"
+db_password = "your-secure-database-password-here"
+domain_name = "api.thebuzzer.com"
+hosted_zone_id = "Z1234567890ABC"  # Your Route 53 hosted zone ID
