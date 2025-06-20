@@ -6,7 +6,7 @@ You're the infrastructure engineer for "The Buzzer" - a real-time sports comment
 
 ## The Crisis
 
-**What Happened**: During the championship finals last week, the API crashed right as the winning goal was scored. Thousands of fans missed the moment, and social media wasn't kind. The CEO wants this fixed before the next big game in **3 days**.
+**What Happened**: During the championship finals last week, the API crashed right as the winning goal was scored. Thousands of fans missed the moment, and social media wasn't kind. The CEO wants this fixed before the next big game in **4 hours~**.
 
 **Current Pain Points**:
 - API dies when concurrent users spike above 1,000 during exciting moments
