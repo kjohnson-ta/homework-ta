@@ -3,6 +3,29 @@
 ## Overview
 This guide provides evaluation criteria and follow-up discussion topics for the "Buzzer" sports API infrastructure exercise.
 
+## Intentional Bottlenecks in Provided Code
+The skeleton infrastructure contains these deliberate performance issues for candidates to identify:
+
+### Infrastructure Issues:
+- **Single ECS Fargate task** (`desired_count = 1`) - no horizontal scaling
+- **Minimal resources** - 256 CPU, 512 MB memory (insufficient for load)
+- **Small database instance** - db.t3.micro (will bottleneck under load)
+- **No auto-scaling configuration** - service won't scale with demand
+- **Missing comprehensive monitoring** - limited CloudWatch setup
+
+### Application Issues:
+- **No database connection pooling** - creates new connection per request
+- **Inefficient queries** - no pagination, expensive joins, full table scans
+- **No caching mechanisms** - every request hits database
+- **Debug mode enabled** - Flask debug=True in production
+- **Single Gunicorn worker** - limits concurrent request handling
+- **Expensive stats endpoint** - runs multiple COUNT queries on every call
+
+### CI/CD Issues:
+- **Basic deployment strategy** - no zero-downtime deployment
+- **Missing health checks** - during deployments
+- **No testing stages** - deploys without validation
+
 ## Assessment Criteria
 
 ### 1. Problem Diagnosis (25%)
