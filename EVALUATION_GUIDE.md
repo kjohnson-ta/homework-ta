@@ -80,42 +80,6 @@ The skeleton infrastructure contains these deliberate performance issues for can
 - **3-4 hours**: Good time management, thorough approach
 - **Over 4 hours**: May struggle with prioritization in real scenarios
 
-## Follow-Up Interview Questions
-
-### Technical Deep Dive
-1. **"Walk me through your root cause analysis. What evidence led you to this conclusion?"**
-   - *Assesses analytical thinking and problem-solving methodology*
-
-2. **"Your solution works for 5,000 users. What happens at 50,000? 500,000?"**
-   - *Tests scalability thinking and architectural evolution*
-
-3. **"The database is now the bottleneck. How would you address this?"**
-   - *Evaluates database scaling knowledge (sharding, read replicas, etc.)*
-
-### Operational Scenarios
-4. **"It's 2 AM, championship game, and your primary database just crashed. Walk me through your response."**
-   - *Tests incident response and pressure handling*
-
-5. **"The marketing team wants to add real-time fan polls during games. How does this impact your architecture?"**
-   - *Assesses adaptability and communication with stakeholders*
-
-### Edge Cases & Push-Back Opportunities
-6. **"What if we want 99.99% uptime? What would that cost and is it worth it?"**
-   - *Good candidates should push back on unrealistic requirements*
-
-7. **"Can we just throw more servers at this problem instead of your solution?"**
-   - *Tests understanding of cost optimization and architectural trade-offs*
-
-8. **"The CEO wants us to handle 1 million concurrent users for the Super Bowl. How quickly can we scale?"**
-   - *Should push back on unrealistic timelines and explain capacity planning*
-
-### Cultural Fit
-9. **"How would you communicate this technical problem to non-technical stakeholders?"**
-   - *Assesses communication skills and business awareness*
-
-10. **"What would you do differently if you had a week instead of 4 hours?"**
-    - *Tests long-term thinking and technical debt awareness*
-
 ## Red Flags to Watch For
 
 ### Technical Red Flags
