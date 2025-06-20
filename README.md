@@ -23,7 +23,7 @@ The existing setup includes:
 - Application Load Balancer (but not really helping much)
 - Route 53 DNS setup
 - Basic GitHub Actions CI/CD pipeline
-- Cloudflare CDN (configured but underutilized)
+- CDN setup (underutilized)
 
 ## Your Mission
 
@@ -49,7 +49,7 @@ Create operational docs so the team can handle the next crisis without you.
    - Root cause analysis of the championship crash
    - Your solution architecture and reasoning
    - Operational runbook for game day deployments
-4. **Proof It Works**: Evidence/testing that shows your solution handles the load
+4. **Proof of Concept**: Evidence that your solution would handle the load (no actual deployment required)
 
 ## Constraints (The Reality Check)
 
@@ -68,8 +68,24 @@ Create operational docs so the team can handle the next crisis without you.
 
 - **Terraform**: Use version 1.5+
 - **AWS Region**: `us-east-1` 
-- **Existing Services**: ECS Fargate, RDS MySQL, ALB, Route 53, Cloudflare, CloudWatch
-- **Assume**: You have AWS credentials and appropriate permissions
+- **Existing Services**: ECS Fargate, RDS MySQL, ALB, Route 53, CloudWatch
+- **Important**: You do NOT need to deploy to AWS or incur any costs
+
+## Cost-Free Approach
+
+**You are NOT expected to:**
+- Deploy infrastructure to AWS (this would cost money)
+- Create actual AWS resources
+- Set up real monitoring dashboards
+
+**Instead, demonstrate your solution through:**
+- `terraform plan` output showing valid configurations
+- Architecture diagrams (hand-drawn or digital)
+- Detailed documentation of your approach
+- Theoretical load testing methodology
+- Screenshots of monitoring dashboard designs (mockups are fine)
+
+The goal is to see your problem-solving process and infrastructure knowledge, not to rack up AWS bills!
 
 ## The Stakes
 
