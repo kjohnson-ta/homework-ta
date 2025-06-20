@@ -7,7 +7,7 @@ This guide provides evaluation criteria and follow-up discussion topics for the 
 
 ### 1. Problem Diagnosis (25%)
 **What to look for:**
-- Identifies single point of failure (single EC2 instance)
+- Identifies single point of failure (single ECS Fargate task)
 - Recognizes database connection pooling issues
 - Understands load balancer configuration gaps
 - Identifies missing autoscaling mechanisms
@@ -19,10 +19,10 @@ This guide provides evaluation criteria and follow-up discussion topics for the 
 
 ### 2. Solution Architecture (35%)
 **Strong candidates will:**
-- Implement horizontal scaling (ECS, EKS, or Auto Scaling Groups)
+- Implement horizontal scaling (ECS Auto Scaling with multiple tasks)
 - Add database read replicas or connection pooling
 - Configure proper load balancer health checks
-- Utilize CDN for static/cacheable content
+- Utilize Cloudflare CDN for static/cacheable content
 - Consider caching strategies (ElastiCache, application-level)
 
 **Evaluation points:**

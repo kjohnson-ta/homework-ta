@@ -18,12 +18,12 @@ You're the infrastructure engineer for "The Buzzer" - a real-time sports comment
 ## Current Infrastructure
 
 The existing setup includes:
-- Python Flask API serving live commentary data (deployed on single EC2 instance)
+- Python Flask API running on ECS Fargate (single task, minimal resources)
 - MySQL RDS database storing game events and commentary
 - Application Load Balancer (but not really helping much)
 - Route 53 DNS setup
 - Basic GitHub Actions CI/CD pipeline
-- CloudFront CDN (configured but underutilized)
+- Cloudflare CDN (configured but underutilized)
 
 ## Your Mission
 
@@ -68,12 +68,12 @@ Create operational docs so the team can handle the next crisis without you.
 
 - **Terraform**: Use version 1.5+
 - **AWS Region**: `us-east-1` 
-- **Existing Services**: EC2, RDS MySQL, ALB, Route 53, CloudFront, CloudWatch
+- **Existing Services**: ECS Fargate, RDS MySQL, ALB, Route 53, Cloudflare, CloudWatch
 - **Assume**: You have AWS credentials and appropriate permissions
 
 ## The Stakes
 
-Success means thousands of sports fans get their instant notifications when their team scores. Failure means another social media roasting and possibly looking for a new job! 😅
+Success means thousands of sports fans get their instant notifications when their team scores. Failure means another social media roasting and a very unhappy CEO! 😅
 
 **No pressure, but... good luck! 🚀**
 
