@@ -17,8 +17,8 @@ The skeleton infrastructure contains these deliberate performance issues for can
 - **No database connection pooling** - creates new connection per request
 - **Inefficient queries** - no pagination, expensive joins, full table scans
 - **No caching mechanisms** - every request hits database
-- **Debug mode enabled** - Flask debug=True in production
-- **Single Gunicorn worker** - limits concurrent request handling
+- **Single Node.js process** - no clustering or PM2 process management
+- **Blocking operations** - artificial delays that compound under load
 - **Expensive stats endpoint** - runs multiple COUNT queries on every call
 
 ### CI/CD Issues:
@@ -38,7 +38,7 @@ The skeleton infrastructure contains these deliberate performance issues for can
 **Red flags:**
 - Jumps to solutions without proper analysis
 - Misses obvious bottlenecks
-- Blames application code without investigating infrastructure
+- Blames Node.js application code without investigating infrastructure
 
 ### 2. Solution Architecture (35%)
 **Strong candidates will:**

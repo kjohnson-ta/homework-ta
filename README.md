@@ -18,7 +18,7 @@ You're the infrastructure engineer for "The Buzzer" - a real-time sports comment
 ## Current Infrastructure
 
 The existing setup includes:
-- Python Flask API running on ECS Fargate (single task, minimal resources)
+- Node.js Express API running on ECS Fargate (single task, minimal resources)
 - MySQL RDS database storing game events and commentary
 - Application Load Balancer (but not really helping much)
 - Route 53 DNS setup
@@ -61,7 +61,7 @@ Create operational docs so the team can handle the next crisis without you.
 ## Getting Started
 
 1. **Explore the damage**: Check out `terraform/` for current infrastructure
-2. **Understand the app**: Review `app/` directory (you don't need to change the Python code)
+2. **Understand the app**: Review `app/` directory (you don't need to change the JavaScript code)
 3. **Check the pipeline**: Look at `.github/workflows/` for deployment process
 
 ## Technical Environment
