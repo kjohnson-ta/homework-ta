@@ -49,7 +49,7 @@ Create operational docs so the team can handle the next crisis without you.
    - Root cause analysis of the championship crash
    - Your solution architecture and reasoning
    - Operational runbook for game day deployments
-4. **Proof It Works**: Evidence/testing that shows your solution handles the load
+4. **Proof of Concept**: Evidence that your solution would handle the load (no actual deployment required)
 
 ## Constraints (The Reality Check)
 
@@ -66,10 +66,47 @@ Create operational docs so the team can handle the next crisis without you.
 
 ## Technical Environment
 
-- **Terraform**: Use version 1.5+
+- **Terraform**: Use version 1.7+
 - **AWS Region**: `us-east-1` 
 - **Existing Services**: ECS Fargate, RDS MySQL, ALB, Route 53, CloudWatch
-- **Assume**: You have AWS credentials and appropriate permissions
+- **Important**: You do NOT need to deploy to AWS or incur any costs
+
+## Cost-Free Approach
+
+**You are NOT expected to:**
+- Deploy infrastructure to AWS (this would cost money)
+- Create actual AWS resources
+- Set up real monitoring dashboards
+
+**Instead, demonstrate your solution through:**
+- `terraform plan` output showing valid configurations
+- Architecture diagrams (hand-drawn or digital)
+- Detailed documentation of your approach
+- Theoretical load testing methodology
+- Screenshots of monitoring dashboard designs (mockups are fine)
+
+**Optional**: If you have your own AWS free tier account and want to test actual deployments, that's perfectly fine but not required for evaluation.
+
+## Advanced Testing (Optional)
+
+For candidates familiar with Terraform testing, you can use **Terraform AWS Provider Mocks** to validate your configurations without creating real resources:
+
+```bash
+# Example using terraform-aws-provider mocks
+terraform init
+terraform plan -target=aws_ecs_service.main
+terraform apply -target=aws_ecs_service.main  # Uses mocks, no real resources
+```
+
+This allows you to:
+- Test your Terraform configurations end-to-end
+- Validate resource dependencies and references
+- Catch configuration errors beyond basic syntax
+- Demonstrate working infrastructure code
+
+**Setup**: See [terraform-aws-provider documentation](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/guides/mocking) for mock configuration details.
+
+The goal is to see your problem-solving process and infrastructure knowledge, not to rack up AWS bills!
 
 ## The Stakes
 

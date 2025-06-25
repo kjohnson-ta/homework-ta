@@ -132,9 +132,26 @@ The skeleton infrastructure contains these deliberate performance issues for can
 
 ### What Not to Expect
 - Perfect production-ready code (this is a 4-hour exercise)
+- Actual AWS deployment (candidates should not incur costs)
 - Deep application performance optimization
 - Advanced Kubernetes or container orchestration (unless they choose it)
 - Complex CI/CD improvements (focus should be on infrastructure)
+
+## Acceptable Proof of Work
+Since candidates won't deploy to AWS, accept these as valid evidence:
+- `terraform plan` output showing resource changes
+- `terraform apply` with AWS provider mocks (bonus points)
+- Architecture diagrams (hand-drawn or digital tools)
+- Written analysis of bottlenecks and solutions
+- Mockup monitoring dashboards or detailed descriptions
+- Cost analysis and resource sizing rationale
+
+### Terraform Mock Provider Bonus
+Candidates who use Terraform AWS provider mocks demonstrate:
+- Advanced Terraform knowledge
+- Understanding of testing methodologies
+- Ability to validate configurations beyond syntax checking
+- Professional development practices
 
 ### Bonus Considerations
 - Creative solutions that still meet requirements

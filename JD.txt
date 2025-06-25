@@ -1,0 +1,28 @@
+Senior Software Engineer, Infrastructure (Level 3)
+
+About the Role
+Our Infrastructure team is responsible for building internal tools and services to improve our product availability and our Engineering productivity. Engineers in this team are passionate about performance, delivery and metrics. As an infrastructure engineer, you will collaborate closely with multiple engineering teams to help develop and improve our internal tools and services. You’ll be implementing new infrastructure using Terraform and help define our scaling, alerting and monitoring. We have lots of fresh ideas and are excited for you to join us to help us build the best sports media app in the world.
+
+This role is remote in the US or Canada only. 
+
+Responsibilities
+Develop new features based on specifications, ensuring to always optimize for scalability and performance.
+Contribute to and engage in our scrum process through sprint planning, review, retrospectives and daily standups.
+Understand the technical requirements of new requests and work with other engineers to ensure the end result matches expectations of building a world class product.
+Fix live bugs and triage the issue with company peers so the root cause can be identified. We can patch live issues but we always go back to fix the bigger problem.
+Validate the quality of your work through manual and automated testing. We believe engineers own their code throughout the whole lifecycle of development until it’s live, giving them visibility and ownership over their work.
+
+Requirements
+4+ years of relevant engineering experience.
+Knowledge of Terraform and CI/CD tools.
+Knowledge of AWS products:
+Lambda
+Elastic Beanstalk
+ECS
+Cloudfront
+S3
+IAM
+Experience working with high availability websites
+Experience with Cloud CDN tools like Fastly and Cloudflare.
+
+
