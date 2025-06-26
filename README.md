@@ -1,19 +1,15 @@
-# Live Sports Commentary API - "The Buzzer" 🏀
+# Live Sports Commentary API - Infrastructure Assessment
 
-## The Story
+## Technical Challenge
 
-You're the infrastructure engineer for "The Buzzer" - a real-time sports commentary API that provides live play-by-play data to mobile apps during games. Think of it as the backend that powers those instant notifications when your team scores!
+You are tasked with diagnosing and resolving infrastructure performance issues in a Node.js Express API that crashed during high-traffic events. The API handles live sports commentary and must scale to handle 5,000+ concurrent users during peak sporting events.
 
-## The Crisis
-
-**What Happened**: During the championship finals last week, the API crashed right as the winning goal was scored. Thousands of fans missed the moment, and social media wasn't kind. The CEO wants this fixed before the next big game in **4 hours~**.
-
-**Current Pain Points**:
-- API dies when concurrent users spike above 1,000 during exciting moments
-- Commentary updates take 15+ seconds to reach mobile apps during clutch plays
-- No way to know if the system is about to crash until it's too late
-- Database keeps choking on the rapid-fire score updates
-- Error rate hits 25% when games get intense
+## Performance Requirements
+- **Concurrent Users**: Must handle 5,000+ simultaneous connections
+- **Response Time**: Commentary updates must reach clients within 2-3 seconds
+- **Availability**: <5% error rate during peak traffic
+- **Zero Downtime**: Deployments must not interrupt service
+- **Data Storage**: Implement secure file storage for game assets and backup functionality
 
 ## Current Infrastructure
 
@@ -25,31 +21,51 @@ The existing setup includes:
 - Basic GitHub Actions CI/CD pipeline
 - CDN setup (underutilized)
 
-## Your Mission
+## Infrastructure Issues to Identify and Resolve
 
-You have **4 hours maximum** to save the next big game! Your goals:
+### Primary Bottlenecks (Critical)
+1. **ECS Service Scaling**: Single task configuration unable to handle concurrent load
+2. **Resource Allocation**: Under-provisioned CPU/memory resources 
+3. **Database Performance**: RDS instance class insufficient for workload
+4. **Auto-scaling Configuration**: Missing or inadequate scaling policies
 
-### 1. **Fix the Crash** 🔥
-Diagnose why the API dies under load and implement a solution that can handle 5,000+ concurrent users during peak moments.
+### Storage and Data Management (High Priority)
+1. **S3 Bucket Configuration**: Missing secure file storage for game assets (images, videos, documents)
+2. **Backup Strategy**: No automated database backup solution to S3
+3. **Static Asset Serving**: Game images and media should be served from S3/CloudFront
+4. **Data Archival**: Old commentary data should be archived to S3 for cost optimization
 
-### 2. **Speed Up the Action** ⚡
-Ensure commentary updates reach fans within 2-3 seconds of real events happening.
+### Advanced Optimizations (Medium Priority)
+1. **Load Balancer Configuration**: Suboptimal ALB settings for high traffic
+2. **Database Read Replicas**: No read scaling for query-heavy workloads
+3. **Caching Layer**: Missing Redis/ElastiCache implementation
+4. **CDN Integration**: Underutilized CloudFront configuration
 
-### 3. **Get Visibility** 👀
-Set up monitoring so the team knows when the system is stressed BEFORE it crashes.
+## Deliverables
 
-### 4. **Document Everything** 📋
-Create operational docs so the team can handle the next crisis without you.
+1. **Terraform Infrastructure Updates**:
+   - ECS service configuration with proper scaling
+   - Auto-scaling policies for dynamic capacity management
+   - RDS optimization and read replica configuration
+   - Security group and networking improvements
 
-## What You'll Deliver
+2. **S3 Storage Implementation**:
+   - S3 bucket configuration for game assets (images, videos, documents)
+   - Automated RDS backup integration with S3
+   - Static asset serving via S3/CloudFront
+   - Data lifecycle policies for cost optimization
 
-1. **Infrastructure as Code**: Updated Terraform configurations that can handle the load
-2. **Monitoring & Alerting**: CloudWatch dashboards, alarms, and health checks
-3. **Crisis Playbook**: 
-   - Root cause analysis of the championship crash
-   - Your solution architecture and reasoning
-   - Operational runbook for game day deployments
-4. **Proof of Concept**: Evidence that your solution would handle the load (no actual deployment required)
+3. **GitHub Actions Workflow**:
+   - CI/CD pipeline optimization
+   - Infrastructure deployment automation
+   - S3 deployment and asset management
+   - Testing and validation steps
+
+4. **Documentation**:
+   - Infrastructure architecture decisions
+   - S3 bucket policies and access patterns
+   - Data management and backup strategies
+   - Troubleshooting guide for common issues
 
 ## Constraints (The Reality Check)
 
@@ -60,9 +76,21 @@ Create operational docs so the team can handle the next crisis without you.
 
 ## Getting Started
 
-1. **Explore the damage**: Check out `terraform/` for current infrastructure
-2. **Understand the app**: Review `app/` directory (you don't need to change the JavaScript code)
-3. **Check the pipeline**: Look at `.github/workflows/` for deployment process
+1. **Infrastructure Analysis**: 
+   - Review `terraform/main.tf` for current ECS, RDS, and networking configuration
+   - Identify specific bottlenecks in resource allocation and scaling policies
+   - Examine security group and load balancer configurations
+   - Note missing S3 storage infrastructure for game assets and backups
+
+2. **Application Review**: 
+   - The Node.js application (`app/`) is optimized and does not require changes
+   - Focus on infrastructure-level scaling and performance improvements
+   - Consider how S3 integration would support static asset serving
+
+3. **CI/CD Pipeline**: 
+   - Analyze `.github/workflows/deploy.yml` for deployment automation opportunities
+   - Consider adding S3 bucket deployment and asset management steps
+   - Infrastructure testing and validation improvements
 
 ## Technical Environment
 
@@ -108,11 +136,16 @@ This allows you to:
 
 The goal is to see your problem-solving process and infrastructure knowledge, not to rack up AWS bills!
 
-## The Stakes
+## Evaluation Criteria
 
-Success means thousands of sports fans get their instant notifications when their team scores. Failure means another social media roasting and a very unhappy CEO! 😅
+Your solution will be assessed on:
 
-**No pressure, but... good luck! 🚀**
+1. **Technical Accuracy**: Correct identification of infrastructure bottlenecks
+2. **Scalability Design**: Appropriate auto-scaling and resource allocation
+3. **S3 Integration**: Proper bucket configuration, security, and lifecycle management
+4. **Cost Optimization**: Efficient resource usage within budget constraints
+5. **Operational Excellence**: Clear documentation and maintainable solutions
+6. **Terraform Best Practices**: Proper IaC structure and validation
 
 ---
-*Time Budget: 4 hours maximum | Focus: Infrastructure resilience and observability*
+*Focus Areas: ECS scaling, S3 storage solutions, Terraform optimization, CI/CD automation*
