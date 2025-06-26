@@ -69,7 +69,7 @@ The existing setup includes:
    - Analyze `.github/workflows/deploy.yml` for deployment automation opportunities
 
 
-## Cost-Free Approach
+## Approach
 
 **You are NOT expected to:**
 - Deploy infrastructure to AWS
