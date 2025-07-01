@@ -33,20 +33,41 @@ Review the candidate's submission focusing on:
 ### 1. Solution Walkthrough (10-15 minutes)
 **Start here to understand their approach:**
 
-**Q1**: "Walk me through your root cause analysis. What evidence led you to this conclusion?"
+**Q1**: "Walk me through what you believe could have caused the application to crash under load, what led you to this conclusion"
 - *Assesses analytical thinking and problem-solving methodology*
+- As we don't have any logs/metrics for the candidate to look at a lot of answers here would be acceptable, application memory crashes, CPU overload leading to connection timeout/DB overload etc. 
 
-**Q2**: "What was the primary root cause of the championship crash, and how does your solution address it?"
+**Q2**: "What was the most important improvment you made to handle higher traffic?"
 - *Assess: Problem diagnosis skills and solution alignment*
 
 **Q3**: "Show me the most critical piece of your monitoring setup. Why did you choose this metric?"
 - *Evaluate: Understanding of system health indicators*
 
-### 2. Scalability & Performance (15-20 minutes)
 
-**Q4**: "Your solution handles 5,000 concurrent users. What happens at 50,000? 500,000? Walk me through the bottlenecks."
+### 2. Secuirty & Networking (10-15 minutes)
+
+**Q1**: "Talk me through the network architecture that was setup in the terraform"
+- Candidate should be able to talk about private/public subents and distinguish between what makes a subnet private/public (looking for identifying NAT gateway and Internet Gateway)
+-  Follow up with whats the difference between the two? How do you decide what resources shoudld be in what subnets? Maybe they can identify that the ECS tasks were in the public subnets instead of the
+   private ones. 
+
+
+**Q2**: "What Security Red Flags did you notice and how did you fix them?"
+- Should be able to identify the RDS SG was wide open to all traffic.
+- In the terrafrom should be able to talk about the Password being hard coded and explain better ways to pass senstivie info to terraform (param store/secrets manager/github secrets)
+
+
+**Q3**: "What was the critial bug preventing the app from talkign to the Database?"
+- Should mention that there was no egress rule on the Task SG, if they weren't able to get that ask them what trouble shooting steps they would go throug if they had real infrastructure to look at. 
+
+
+### 3. Scalability & Performance (15-20 minutes)
+
+**Q4**: "Your solution handles 5,000 concurrent users. What happens at 50,000? 500,000?"
 - *Good answer: Database, network, application layer considerations*
 - *Red flag: "Just add more servers" without analysis*
+- Would be great if not just infra solutions were given like autoscaling and DB enlarging, should also talk about application improvements like making the caching external to the application so it can
+- scale independently
 
 **Q5**: "The marketing team wants to add live fan voting during games - potentially 100,000 votes in 30 seconds. How does this change your architecture?"
 - *Assess: Real-time data handling, queue systems, database design*
@@ -62,8 +83,9 @@ Review the candidate's submission focusing on:
 **Q8**: "It's 2 AM during the playoffs, and your primary database crashes. Walk me through your incident response."
 - *Evaluate: Incident procedures, communication, technical recovery*
 
-**Q9**: "How would you deploy this solution to production with zero downtime?"
-- *Assess: Blue-green deployments, rolling updates, health checks*
+**Q9**: "Does your applicaion have zero downtime deployments? What could you add so you could have very fast rollbacks?"
+- ECS deployments should already handle zero down time deployennts
+- Blue/Green deployments would allow for rollbacks with just a CNAME swap
 
 **Q10**: "What monitoring alerts would wake you up at night? What's just informational?"
 - *Good candidates: Distinguish between critical and warning alerts*

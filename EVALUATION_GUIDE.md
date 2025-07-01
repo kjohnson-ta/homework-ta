@@ -8,74 +8,43 @@ The skeleton infrastructure contains these deliberate performance issues for can
 
 ### Infrastructure Issues:
 - **Single ECS Fargate task** (`desired_count = 1`) - no horizontal scaling
-- **Minimal resources** - 256 CPU, 512 MB memory (insufficient for load)
-- **Small database instance** - db.t3.micro (will bottleneck under load)
+- **Minimal resources** - 256 CPU, 512 MB memory (insufficient for load but since we aren't providing a live environment and no metrics to look at for the crash I am not sure what we would expect the right resource specs woudl be)
+- **Small database instance** - db.t3.micro (will most likely bottleneck under load) but hard to tell without load testing or specifying the traffic baseline what the instance size whould be 
 - **No auto-scaling configuration** - service won't scale with demand
-- **Missing comprehensive monitoring** - limited CloudWatch setup
+- **Missing comprehensive monitoring** - limited CloudWatch setup would like to see some alarms around CPU/Memory added
 
-### Application Issues:
-- **No database connection pooling** - creates new connection per request
-- **Inefficient queries** - no pagination, expensive joins, full table scans
-- **No caching mechanisms** - every request hits database
-- **Single Node.js process** - no clustering or PM2 process management
-- **Blocking operations** - artificial delays that compound under load
-- **Expensive stats endpoint** - runs multiple COUNT queries on every call
+### Security/Networkign Issues:
+-- ECS task definition using public subnets (better to use private subnets to limit network exposure)
+-- RDS/ALB/ECS only specifying 1 subnet instead of the two that are created which is better for high availability
+-- On the RDS Security Group traffic is allowed from all sources  0.0.0.0/0, big security risk, rule should be updated to ony be from the ECS task Security Group
+-- DB Password is hardcoded as a terraform variable and used in the task definition and the RDS instance resrouce, this should be updated to be pulled from either ssm or parameter store
+-- ECS Task Secuirty Group has no egress rule, one should be added for either 0.0.0.0/0 so traffic can reach the database
+
 
 ### CI/CD Issues:
-- **Basic deployment strategy** - no zero-downtime deployment
-- **Missing health checks** - during deployments
-- **No testing stages** - deploys without validation
+- **Basic deployment strategy** -The current pipeline doesn't even deploy the app, just updates the service but doesn't create a new task definition that pulls the new image
+- **Missing Terraform apply** - The teraform should be applied in the pipeline. The ECS task definition is set to use "latest" if this is ran then it will spin up new tasks with the latest image, but the image we actually want is the one built in the pipeline tagged with the commit sha, the better way to do this is to pass a variable to Terraform with the image tag and let the terrafrom apply actually do the deployment. (This should probably be considered a strech goal for them to identify this but would be good to discuss in the interview)
+- **Missing health checks** - The load balancer does have a health check which it uses to decide when to update traffic to the new task so you could argue that there is a built in health check but there could be a stage that waits for the service to become stable , or a health check that hits the loadbalancer's DNS record at the /health endpoint.
+- **No testing stages** - deploys without validation - though no unit tests exist so would just be good for them to identify that they should be added or E2E tests
 
 ## Assessment Criteria
 
-### 1. Problem Diagnosis (25%)
+### 1. Problem Diagnosis 
 **What to look for:**
-- Identifies single point of failure (single ECS Fargate task)
-- Recognizes database connection pooling issues
-- Understands load balancer configuration gaps
-- Identifies missing autoscaling mechanisms
+- Identifies points of failure (Very small resoruce allocation on ECS and RDS, no autoscaling policy, no read replicas on the DB)
+- Identifies Security and Networking Gaps
+- Understands load balancer configuration gaps (not sure what these are?)
+- Identifies that the github action does not apply terraform changes or actually deploy a new application version
 
-**Red flags:**
-- Jumps to solutions without proper analysis
-- Misses obvious bottlenecks
-- Blames Node.js application code without investigating infrastructure
-
-### 2. Solution Architecture (35%)
+### 2. Solution Architecture
 **Strong candidates will:**
 - Implement horizontal scaling (ECS Auto Scaling with multiple tasks)
-- Add database read replicas or connection pooling
-- Configure proper load balancer health checks
-- Utilize CDN for static/cacheable content (CloudFront or similar)
-- Consider caching strategies (ElastiCache, application-level)
+  Look out for what kind of scaling they add, is it step scaling? target scaling? What thersholds do they pick? What metrics are they scaling based off of CPU/Memory/Storage?
+- Add database read replicas (Not actually sure that a read replica would be necessary unless load testing was performed, would be good to ask the candidate how they would deterimine if a read replica was needed)
+- Fix Github Action and deploys version either using terraform or AWS CLI
+- Add Terraform Apply in CI/CD
 
-**Evaluation points:**
-- **Excellent**: Multi-AZ, autoscaling, proper resource allocation
-- **Good**: Basic scaling solution with some redundancy
-- **Needs improvement**: Vertical scaling only or incomplete solution
-
-### 3. Monitoring & Observability (20%)
-**Must have:**
-- CloudWatch dashboards with key metrics
-- Alarms for critical thresholds
-- Health check endpoints
-
-**Bonus points:**
-- Custom application metrics
-- Log aggregation strategy
-- Distributed tracing setup
-
-### 4. Operational Excellence (20%)
-**Documentation quality:**
-- Clear deployment procedures
-- Rollback plans
-- Incident response procedures
-
-**Infrastructure as Code:**
-- Well-structured Terraform modules
-- Proper variable usage
-- Environment separation
-
-## Time Management Assessment
+## Time Management Assessment (Will we even know how long this took them? Are we going to send it out ask ask for it to be sent back right when they are done?)
 - **Under 3 hours**: Likely experienced, efficient problem-solver
 - **3-4 hours**: Good time management, thorough approach
 - **Over 4 hours**: May struggle with prioritization in real scenarios
@@ -85,7 +54,7 @@ The skeleton infrastructure contains these deliberate performance issues for can
 ### Technical Red Flags
 - Proposes solutions without understanding the problem
 - Suggests over-engineering for the scale described
-- Ignores cost considerations entirely
+- Ignores cost considerations entirely (Do we really have any cost considerations they are changing?) 
 - No consideration for operational complexity
 
 ### Soft Skills Red Flags
